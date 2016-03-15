@@ -7,6 +7,9 @@ import android.view.View;
 
 import com.yjmfortune.viewpagercycle.Demo1.MainActivity;
 import com.yjmfortune.viewpagercycle.Demo2.Main2Activity;
+import com.yjmfortune.viewpagercycle.Demo3.Main3Activity;
+import com.yjmfortune.viewpagercycle.Demo4.Main4Activity;
+import com.yjmfortune.viewpagercycle.Demo5.Main5Activity;
 
 public class AllActivity extends AppCompatActivity {
 
@@ -25,10 +28,14 @@ public class AllActivity extends AppCompatActivity {
     }
 
     public void onclick3(View v) {
-//        startActivity(new Intent(AllActivity.this, MainActivity.class));
+        startActivity(new Intent(AllActivity.this, Main3Activity.class));
     }
 
     public void onclick4(View v) {
-//        startActivity(new Intent(AllActivity.this, MainActivity.class));
+        startActivity(new Intent(AllActivity.this, Main4Activity.class));
+    }
+
+    public void onclick5(View v) {
+        startActivity(new Intent(AllActivity.this, Main5Activity.class));
     }
 }

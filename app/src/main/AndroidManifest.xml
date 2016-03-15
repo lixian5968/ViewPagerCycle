@@ -7,20 +7,37 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".Demo1.MainActivity">
-        </activity>
-        <activity
-            android:name=".Demo2.Main2Activity">
 
+        <!--
+        解析：
+        Main2Activity 自己写的 循环4个 真的循环
+
+        Main4Activity 自己写的 假的无限循环  但是 没有影响
+
+
+         Main5Activity 自定义View 假的无限循环
+        -->
+
+        <activity android:name=".Demo1.MainActivity" >
         </activity>
-        <activity
-            android:name=".AllActivity">
+        <activity android:name=".Demo2.Main2Activity" >
+        </activity>
+        <activity android:name=".AllActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Demo3.Main3Activity"
+            android:label="@string/title_activity_main3" >
+        </activity>
+        <activity android:name=".Demo4.Main4Activity" >
+        </activity>
+        <activity
+            android:name=".Demo5.Main5Activity"
+            android:label="@string/title_activity_main5" >
         </activity>
     </application>
 

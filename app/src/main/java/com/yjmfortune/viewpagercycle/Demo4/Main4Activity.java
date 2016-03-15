@@ -1,4 +1,4 @@
-package com.yjmfortune.viewpagercycle.Demo2;
+package com.yjmfortune.viewpagercycle.Demo4;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main4Activity extends AppCompatActivity {
     ViewPager mViewPager;
     LinearLayout mLinearLayout;
     LayoutInflater inflater;
@@ -30,10 +30,10 @@ public class Main2Activity extends AppCompatActivity {
     Context ct;
 
 
-    //能滚动
     public boolean Scoll = false;
     mAdapter adapter;
-
+    //能滚动
+    boolean canCyc = true;
 
     public int select = 0;
     private ScheduledExecutorService scheduledExecutorService;
@@ -42,11 +42,7 @@ public class Main2Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 100) {
-                if (select == 0) {
-                    mViewPager.setCurrentItem(select, false);
-                } else {
-                    mViewPager.setCurrentItem(select);
-                }
+                mViewPager.setCurrentItem(select);
             }
         }
     };
@@ -61,8 +57,7 @@ public class Main2Activity extends AppCompatActivity {
         ct = this;
 
 
-
-        inflater = LayoutInflater.from(Main2Activity.this);
+        inflater = LayoutInflater.from(Main4Activity.this);
         ImageView view1 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
         ImageView view2 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
         ImageView view3 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
@@ -78,13 +73,11 @@ public class Main2Activity extends AppCompatActivity {
         mList.add(view4);
 
 
-
-
         adapter = new mAdapter(mList);
         mViewPager.setAdapter(adapter);
         mListPoint = new ArrayList<>();
         for (int i = 0; i < mList.size(); i++) {
-            ImageView img = new ImageView(Main2Activity.this);
+            ImageView img = new ImageView(Main4Activity.this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(ct, 15), dip2px(ct, 15));
             params.setMargins(dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5));
             if (i == 0) {
@@ -107,7 +100,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 select = position;
                 for (int i = 0; i < mListPoint.size(); i++) {
-                    if (i == position) {
+                    if (i == (position % mList.size())) {
                         mListPoint.get(i).setImageResource(R.drawable.point_pressed);
                     } else {
                         mListPoint.get(i).setImageResource(R.drawable.point_unpressed);
@@ -117,37 +110,35 @@ public class Main2Activity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.e("lx", state + "");
+
                 switch (state) {
                     case 1:
-                        //空闲
-                        Scoll = true;
-
+                        canCyc = true;
                         break;
                     case 2:
-                        //界面切换
-                        Scoll = false;
-
+                        canCyc = false;
                         break;
                     case 0:
-                        //界面结束
-                        if ((adapter.getCount() - 1 == mViewPager.getCurrentItem()) && Scoll) {
-                            mViewPager.setCurrentItem(0, false);
-                        } else if ((0 == mViewPager.getCurrentItem()) && Scoll) {
-                            mViewPager.setCurrentItem(adapter.getCount() - 1, false);
-                        }
-
+                        canCyc = true;
                         break;
+
 
                 }
 
             }
         });
 
+
+        mViewPager.setCurrentItem(200 * mList.size());
+
     }
 
 
+    //mAdapter 负责提供数据  mViewPager 负责显示数据
+    //mAdapter 只会加载三个界面，刚开始的 0-2 界面加载完之后，第四个界面加载的时候 第一个界面被拿掉，但是数据拿掉了，mViewPager显示的位置没有改变，
+    // 当加上去第四个的时候 mViewPager 第一个界面还是在的
 
+    //mViewPager 位置已经定下来了 刚开始的时候
     public class mAdapter extends android.support.v4.view.PagerAdapter {
 
         ArrayList<ImageView> mList;
@@ -163,19 +154,25 @@ public class Main2Activity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return mList.size();
+            return Integer.MAX_VALUE;
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
+            Log.e("lx,isViewFromObject", "view:" + view.getTag() + ",object:" + ((View) object).getTag() + "result:" + (view == object));
             return view == object;
         }
 
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(mList.get(position));
-            return mList.get(position);
+            View view = mList.get(position % mList.size());
+            if (view.getParent() != null) {
+                ((ViewGroup) view.getParent()).removeView(view);
+            }
+            view.setTag(position);
+            container.addView(view);
+            return view;
         }
     }
 
@@ -192,23 +189,28 @@ public class Main2Activity extends AppCompatActivity {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public void start(View v){
-        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (mViewPager) {
-                    select = (select + 1) % (mList.size());
-                    handler.sendEmptyMessage(100);
+    public void start(View v) {
+        if (scheduledExecutorService == null || scheduledExecutorService.isShutdown()) {
+            scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+            scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+                @Override
+                public void run() {
+                    synchronized (mViewPager) {
+                        select = select + 1;
+                        handler.sendEmptyMessage(100);
+                    }
                 }
-            }
-        }, 2, 3, TimeUnit.SECONDS);
-        //第二个参数 开始启动的时间
-        //第三个参数 暂停的时间
+            }, 1, 1, TimeUnit.SECONDS);
+            //第二个参数 开始启动的时间
+            //第三个参数 暂停的时间
+        }
+
     }
 
-    public void stop(View v){
-        scheduledExecutorService.shutdown();
+    public void stop(View v) {
+        if (scheduledExecutorService != null) {
+            scheduledExecutorService.shutdown();
+        }
     }
 
 

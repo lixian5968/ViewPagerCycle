@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.0\jars\libs\internal_impl-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\internal_impl-23.2.0-227ca3f24b770490b7f99f09d2e2a386c509fa26.jar" />
+    </item>
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-94d2076190877c1cc8237dfe101d15f827424741.jar" />
+    </item>
+    <item
+        jar="E:\eclipseIDE\adt-bundle-windows-x86_64-20140321\sdk_studio\extras\android\m2repository\com\android\support\support-annotations\23.2.0\support-annotations-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\support-annotations-23.2.0-d0376bebb5b439b9c7e6688875f07d9eb23e37f4.jar" />
+    </item>
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8c108c22c99e794eff255bb34d2a461200c4cbb0">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-1f6f2ef51d7140762be6f54a9ec4c85151702475.jar" />
+    </item>
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="292a9fa091757208efa65e77eef63088247e51f3">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-65363c07bdbf985342146a02ab6eb6b91d2acaf9.jar" />
+    </item>
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6e3578f92f7462d1a935a1d36173e3bdd1234976">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-63538f21e41fbcaa2e04a8c89e41930a1638f8f8.jar" />
+    </item>
+
+</items>
