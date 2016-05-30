@@ -74,8 +74,8 @@ public class Main2Activity extends AppCompatActivity {
         mList = new ArrayList<>();
         mList.add(view1);
         mList.add(view2);
-        mList.add(view3);
-        mList.add(view4);
+//        mList.add(view3);
+//        mList.add(view4);
 
 
 

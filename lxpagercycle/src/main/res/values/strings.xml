@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LxPagerCycle</string>
+
+
+    <item type="id" name="tag_first"></item>
+    <item type="id" name="tag_second"></item>
+</resources>

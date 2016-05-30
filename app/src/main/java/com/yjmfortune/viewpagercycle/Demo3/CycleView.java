@@ -190,7 +190,13 @@ public class CycleView extends FrameLayout implements ViewPager.OnPageChangeList
 
             ImageView iv = mList.get(position % mList.size());
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
+//            container.addView(iv);
+
+            if (iv.getParent() != null) {
+                ((ViewGroup) iv.getParent()).removeView(iv);
+            }
             container.addView(iv);
+
             return iv;
 //            container.addView(mList.get(position % mList.size()));
 //            return mList.get(position % mList.size());

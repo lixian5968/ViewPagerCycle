@@ -4,12 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.yjmfortune.viewpagercycle.R;
 
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by lixian on 2016/3/15.
  */
-public class myCycView extends FrameLayout {
+public class myCycView extends RelativeLayout {
 
     private Context ct;
     private List<ImageView> imageData;
@@ -31,9 +32,18 @@ public class myCycView extends FrameLayout {
     Handler handler;
     MyRun mMyRun;
 
-    public myCycView(final Context ct, LayoutInflater inflater, final List<ImageView> mList, final List<ImageView> mListPoint) {
-        super(ct);
-        this.ct = ct;
+    public myCycView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public myCycView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+
+    public void setCycView(LayoutInflater inflater, final List<ImageView> mList, final List<ImageView> mListPoint) {
+
+
         this.mList = mList;
         this.mListPoint = mListPoint;
         View view = inflater.inflate(R.layout.activity_main5, this);
@@ -68,18 +78,18 @@ public class myCycView extends FrameLayout {
             @Override
             public void onPageScrollStateChanged(int state) {
 
-                switch (state){
+                switch (state) {
                     case 1:
-                        canCyc =true;
+                        canCyc = true;
                         break;
 
                     case 2:
-                        canCyc =false;
+                        canCyc = false;
                         break;
 
 
                     case 0:
-                        canCyc =true;
+                        canCyc = true;
                         break;
 
 
@@ -88,7 +98,6 @@ public class myCycView extends FrameLayout {
             }
         });
     }
-
 
     public class MyPagerAdapter extends PagerAdapter {
         List<ImageView> mList;
@@ -133,7 +142,7 @@ public class myCycView extends FrameLayout {
 
     //是否在,可以 轮播
     boolean isCyc = false;
-    boolean canCyc =true;
+    boolean canCyc = true;
 
     public class MyRun implements Runnable {
 
@@ -158,7 +167,7 @@ public class myCycView extends FrameLayout {
         @Override
         public void run() {
             if (isCyc) {
-                if(canCyc){
+                if (canCyc) {
                     mViewPager.setCurrentItem(select + 1);
                     //这样就变成无限循环了
                 }

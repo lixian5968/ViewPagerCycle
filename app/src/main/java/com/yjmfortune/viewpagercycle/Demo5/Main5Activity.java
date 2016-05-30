@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.yjmfortune.viewpagercycle.R;
 
 import java.util.ArrayList;
@@ -19,17 +20,21 @@ public class Main5Activity extends AppCompatActivity {
     List<ImageView> mList;
     List<ImageView> mListPoint;
     Context ct;
-
+    myCycView lxview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main50);
+
+
+        lxview = (myCycView) findViewById(R.id.mmyCycView);
 
         ct = Main5Activity.this;
-
-
         inflater = LayoutInflater.from(Main5Activity.this);
         ImageView view1 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
+        Glide.with(ct).load("http://dev-weixin.loveiparty.com/upload/images/2016-03-21/party_56ef9236eaae7.jpeg").placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(view1);
         ImageView view2 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
+        Glide.with(ct).load("http://dev-weixin.loveiparty.com/upload/images/2015-09-26/party_56063f81a3ef4.jpeg").placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(view2);
         ImageView view3 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
         ImageView view4 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
         view1.setImageResource(R.drawable.main_img1);
@@ -54,11 +59,9 @@ public class Main5Activity extends AppCompatActivity {
             img.setLayoutParams(params);
             mListPoint.add(img);
         }
-        myCycView cy = new myCycView(ct,inflater,mList,mListPoint);
-//        cy.setImageData(mList);
-//        cy.setPointData(mListPoint);
-        setContentView(cy);
-        cy.start();
+//        myCycView cy = new myCycView(ct,inflater,mList,mListPoint);
+        lxview.setCycView(inflater, mList, mListPoint);
+        lxview.start();
 
     }
 

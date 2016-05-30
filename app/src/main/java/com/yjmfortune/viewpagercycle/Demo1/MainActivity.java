@@ -112,8 +112,8 @@ public class MainActivity extends Activity {
 
         list.add(img1);
         list.add(img2);
-        list.add(img3);
-        list.add(img4);
+//        list.add(img3);
+//        list.add(img4);
 
         ImagePaperAdapter adapter = new ImagePaperAdapter((ArrayList)list);
 
