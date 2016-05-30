@@ -1,1 +1,1 @@
-include ':app', ':lxpagercycle'
+include ':app', ':lxpagercycle', ':recydemo'

@@ -2,11 +2,18 @@
 <items version="2" >
 
     <item
-        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\ViewPagerCycle\lxpagercycle\unspecified\jars\classes.jar"
+        jar="C:\Users\lixian\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
         jumboMode="false"
         revision="23.0.3"
-        sha1="1ca82d4286ec2bfcd858409082b58dc8ba85a64a">
-        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-adfaaefa3f11c4faf3fefe9683fc7316dfff5f2a.jar" />
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-6d10534b0c02aeec760439ab8c27d65744b742d4.jar" />
+    </item>
+    <item
+        jar="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\exploded-aar\ViewPagerCycle\recydemo\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="9cb1940b7b1e34c2e6fd2cacfd58581219a38706">
+        <dex dex="E:\Android_yjm_black\Android_github\ViewPagerCycle\app\build\intermediates\pre-dexed\debug\classes-94b3fd7a480ab512ab62c30fd4550aec064f058b.jar" />
     </item>
 
 </items>

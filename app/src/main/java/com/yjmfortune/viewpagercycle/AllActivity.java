@@ -11,6 +11,7 @@ import com.yjmfortune.viewpagercycle.Demo3.Main3Activity;
 import com.yjmfortune.viewpagercycle.Demo4.Main4Activity;
 import com.yjmfortune.viewpagercycle.Demo5.Main5Activity;
 import com.yjmfortune.viewpagercycle.Demo6.Main6Activity;
+import com.yjmfortune.viewpagercycle.Demo8.Main8Activity;
 
 public class AllActivity extends AppCompatActivity {
 
@@ -41,6 +42,10 @@ public class AllActivity extends AppCompatActivity {
     }
     public void onclick6(View v) {
         startActivity(new Intent(AllActivity.this, Main6Activity.class));
+    }
+
+    public void onclick8(View v) {
+        startActivity(new Intent(AllActivity.this, Main8Activity.class));
     }
 
 

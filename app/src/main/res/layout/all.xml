@@ -39,4 +39,15 @@
         android:onClick="onclick6"
         android:text="第6" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick7"
+        android:text="第7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick8"
+        android:text="第8" />
 </LinearLayout>

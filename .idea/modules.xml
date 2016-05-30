@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ViewPagerCycle.iml" filepath="$PROJECT_DIR$/ViewPagerCycle.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lxpagercycle/lxpagercycle.iml" filepath="$PROJECT_DIR$/lxpagercycle/lxpagercycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recydemo/recydemo.iml" filepath="$PROJECT_DIR$/recydemo/recydemo.iml" />
     </modules>
   </component>
 </project>
