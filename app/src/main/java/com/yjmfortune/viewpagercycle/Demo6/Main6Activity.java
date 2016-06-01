@@ -23,7 +23,8 @@ public class Main6Activity extends AppCompatActivity {
         List<String> myUrlList = new ArrayList<>();
         myUrlList.add("http://dev-weixin.loveiparty.com/upload/images/2016-03-21/party_56ef9236eaae7.jpeg");
         myUrlList.add("http://dev-weixin.loveiparty.com/upload/images/2015-09-26/party_56063f81a3ef4.jpeg");
-//        myUrlList.add("http://dev-weixin.loveiparty.com/upload/images/2016-03-21/party_56ef9236eaae7.jpeg");
+//        myUrlList.add("http://wechat.loveiparty.com/upload/images/2016-05-23/party_57431d258d9e5.jpeg");
+//        myUrlList.add("http://wechat.loveiparty.com/upload/images/2016-01-15/party_5698947d5bf02.jpeg");
         mLxCycleView.setListImage(myUrlList);
 //        mLxCycleView.start();
     }

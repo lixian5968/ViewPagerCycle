@@ -13,7 +13,7 @@ public class MockDataGenerator {
     public static List<PagerItem> getViewPagerData(){
         List<PagerItem> list=new ArrayList<>();
         PagerItem item=null;
-        for(int i=0;i<8;i++){
+        for(int i=0;i<2;i++){
             item=new PagerItem();
             item.setDesc("Description:"+i);
             item.setName("Name:"+i);

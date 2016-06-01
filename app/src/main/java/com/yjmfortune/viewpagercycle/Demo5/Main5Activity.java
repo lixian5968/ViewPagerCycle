@@ -18,6 +18,7 @@ public class Main5Activity extends AppCompatActivity {
 
     LayoutInflater inflater;
     List<ImageView> mList;
+    List<String> mUrlList;
     List<ImageView> mListPoint;
     Context ct;
     myCycView lxview;
@@ -31,6 +32,11 @@ public class Main5Activity extends AppCompatActivity {
 
         ct = Main5Activity.this;
         inflater = LayoutInflater.from(Main5Activity.this);
+
+        mUrlList = new ArrayList<>();
+        mUrlList.add("http://dev-weixin.loveiparty.com/upload/images/2016-03-21/party_56ef9236eaae7.jpeg");
+        mUrlList.add("http://dev-weixin.loveiparty.com/upload/images/2015-09-26/party_56063f81a3ef4.jpeg");
+
         ImageView view1 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
         Glide.with(ct).load("http://dev-weixin.loveiparty.com/upload/images/2016-03-21/party_56ef9236eaae7.jpeg").placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(view1);
         ImageView view2 = (ImageView) inflater.inflate(R.layout.activity_main_item, null);
@@ -46,8 +52,14 @@ public class Main5Activity extends AppCompatActivity {
         mList.add(view2);
         mList.add(view3);
         mList.add(view4);
+
+
+
+
+
+
         mListPoint = new ArrayList<>();
-        for (int i = 0; i < mList.size(); i++) {
+        for (int i = 0; i < mUrlList.size(); i++) {
             ImageView img = new ImageView(Main5Activity.this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(ct, 15), dip2px(ct, 15));
             params.setMargins(dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5));
@@ -60,8 +72,8 @@ public class Main5Activity extends AppCompatActivity {
             mListPoint.add(img);
         }
 //        myCycView cy = new myCycView(ct,inflater,mList,mListPoint);
-        lxview.setCycView(inflater, mList, mListPoint);
-        lxview.start();
+        lxview.setCycView(inflater, mList, mListPoint,mUrlList);
+//        lxview.start();
 
     }
 

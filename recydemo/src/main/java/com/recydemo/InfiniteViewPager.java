@@ -244,7 +244,7 @@ public class InfiniteViewPager extends ViewPager {
         /**
          * Can not be less than 3
          */
-        public final static int MULTIPLIER = 5;
+        public final static int MULTIPLIER = 100;
 
         public static int getRealFromFake(InfiniteViewPager viewPager, int fake) {
             int realAdapterSize = viewPager.getAdapterSize() / MULTIPLIER;

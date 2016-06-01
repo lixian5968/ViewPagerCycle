@@ -2,16 +2,19 @@ package com.yjmfortune.viewpagercycle.Demo5;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.recydemo.InfinitePagerAdapter;
+import com.squareup.picasso.Picasso;
 import com.yjmfortune.viewpagercycle.R;
 
 import java.util.List;
@@ -22,39 +25,43 @@ import java.util.List;
 public class myCycView extends RelativeLayout {
 
     private Context ct;
-    private List<ImageView> imageData;
-    private List<ImageView> pointData;
     ViewPager mViewPager;
     LinearLayout mLinearLayout;
     List<ImageView> mList;
+    List<String> mUrlList;
     List<ImageView> mListPoint;
+    LayoutInflater inflater;
     int select = 0;
     Handler handler;
     MyRun mMyRun;
 
     public myCycView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        ct =context;
     }
 
     public myCycView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ct =context;
     }
 
 
-    public void setCycView(LayoutInflater inflater, final List<ImageView> mList, final List<ImageView> mListPoint) {
+    public void setCycView(LayoutInflater inflater, final List<ImageView> mList, final List<ImageView> mListPoint, List<String> mUrlList) {
 
 
         this.mList = mList;
         this.mListPoint = mListPoint;
+        this.mUrlList = mUrlList;
+        this.inflater = inflater;
         View view = inflater.inflate(R.layout.activity_main5, this);
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         mLinearLayout = (LinearLayout) findViewById(R.id.mLinearLayout);
         for (ImageView img : mListPoint) {
             mLinearLayout.addView(img);
         }
-        MyPagerAdapter adapter = new MyPagerAdapter(mList, mListPoint);
+        MyPagerAdapter adapter = new MyPagerAdapter(mList, mListPoint, mUrlList);
         mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(200 * mList.size());
+        mViewPager.setCurrentItem(mUrlList.size()*50);
         handler = new Handler();
         mMyRun = new MyRun();
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -99,39 +106,94 @@ public class myCycView extends RelativeLayout {
         });
     }
 
-    public class MyPagerAdapter extends PagerAdapter {
+//    public class MyPagerAdapter extends PagerAdapter {
+//        List<ImageView> mList;
+//        List<ImageView> mListPoint;
+//
+//        public MyPagerAdapter(List<ImageView> mList, List<ImageView> mListPoint) {
+//            this.mList = mList;
+//            this.mListPoint = mListPoint;
+//        }
+//
+//        @Override
+//        public void destroyItem(ViewGroup container, int position, Object object) {
+//            container.removeView((View) object);
+//        }
+//
+//        @Override
+//        public Object instantiateItem(ViewGroup container, int position) {
+//            View view = mList.get(position % mList.size());
+//            if (view.getParent() != null) {
+//                ((ViewGroup) view.getParent()).removeView(view);
+//            }
+//            container.addView(view);
+//            return view;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return Integer.MAX_VALUE;
+//        }
+//
+//        @Override
+//        public boolean isViewFromObject(View view, Object object) {
+//            return view == object;
+//        }
+//    }
+
+
+    public class MyPagerAdapter extends InfinitePagerAdapter {
         List<ImageView> mList;
         List<ImageView> mListPoint;
+        List<String> mUrlList;
 
-        public MyPagerAdapter(List<ImageView> mList, List<ImageView> mListPoint) {
+        public MyPagerAdapter(List<ImageView> mList, List<ImageView> mListPoint, List<String> mUrlList) {
             this.mList = mList;
             this.mListPoint = mListPoint;
+            this.mUrlList = mUrlList;
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View view = mList.get(position % mList.size());
-            if (view.getParent() != null) {
-                ((ViewGroup) view.getParent()).removeView(view);
+        public View getView(int position, View view, ViewGroup container) {
+            ViewHolder holder;
+            if (view != null) {
+                holder = (ViewHolder) view.getTag();
+            } else {
+                view = inflater.inflate(R.layout.item_infinite_viewpager, container, false);
+                holder = new ViewHolder(view);
+                view.setTag(holder);
             }
-            container.addView(view);
+            String itemUrl = mUrlList.get(position);
+            holder.position = position;
+            holder.name.setText(itemUrl);
+            holder.description.setText(itemUrl + "position:" + position);
+            Picasso.with(ct).load(itemUrl).placeholder(R.mipmap.bg_loding_horizontal).into(holder.image);
             return view;
         }
 
-        @Override
-        public int getCount() {
-            return Integer.MAX_VALUE;
-        }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
+        public int getItemCount() {
+            return mUrlList.size();
         }
+
+        private class ViewHolder {
+            public int position;
+            TextView name;
+            TextView description;
+            ImageView image;
+            Button downloadButton;
+
+            public ViewHolder(View view) {
+                name = (TextView) view.findViewById(R.id.item_name);
+                description = (TextView) view.findViewById(R.id.item_desc);
+                image = (ImageView) view.findViewById(R.id.item_image);
+                downloadButton = (Button) view.findViewById(R.id.item_button);
+            }
+        }
+
+
     }
 
     //开始游戏

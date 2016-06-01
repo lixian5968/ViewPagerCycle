@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.lxpagercycle.PagerAdapter.InfiniteViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,22 +40,14 @@ public class LxCycleView extends RelativeLayout {
         ct = context;
     }
 
-    List<ImageView> mList;
     List<ImageView> mListPoint;
     LayoutInflater inflater;
 
     public void setListImage(List<String> mUrlList) {
         inflater = LayoutInflater.from(ct);
-        mList = new ArrayList<>();
-        for (int i = 0; i < mUrlList.size(); i++) {
-//            ImageView mImageView = (ImageView) inflater.inflate(com.lxpagercycle.R.layout.image_item, null);
-            ImageView mImageView = new ImageView(ct);
-            mImageView.setTag(R.id.tag_first, "lx" + i);
-            Glide.with(ct).load(mUrlList.get(i)).placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(mImageView);
-            mList.add(mImageView);
-        }
+
         mListPoint = new ArrayList<>();
-        for (int i = 0; i < mList.size(); i++) {
+        for (int i = 0; i < mUrlList.size(); i++) {
             ImageView img = new ImageView(ct);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(ct, 15), dip2px(ct, 15));
             params.setMargins(dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5), dip2px(ct, 5));
@@ -66,24 +59,17 @@ public class LxCycleView extends RelativeLayout {
             img.setLayoutParams(params);
             mListPoint.add(img);
         }
-
-//        if (mList.size() == 2) {
-//            ImageView mImageView = new ImageView(ct);
-//            mImageView.setTag(R.id.tag_first, "lx2");
-//            Glide.with(ct).load(mUrlList.get(0)).placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(mImageView);
-//            mList.add(mImageView);
-//        }
-
         View view = inflater.inflate(R.layout.cycle_view, this);
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         mLinearLayout = (LinearLayout) findViewById(R.id.mLinearLayout);
         for (ImageView img : mListPoint) {
             mLinearLayout.addView(img);
         }
-        MyPagerAdapter adapter = new MyPagerAdapter(mList, mListPoint);
-        mViewPager.setOffscreenPageLimit(0);
+
+
+        MyPagerAdapter adapter = new MyPagerAdapter(mUrlList, mListPoint);
         mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(200 * mList.size());
+        mViewPager.setCurrentItem(InfiniteViewPager.FakePositionHelper.CurrentItem * mUrlList.size());
         handler = new Handler();
         mMyRun = new MyRun();
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -123,40 +109,105 @@ public class LxCycleView extends RelativeLayout {
     }
 
 
+//    public class MyPagerAdapter extends InfinitePagerAdapter {
+//        List<String> mUrlList;
+//        List<ImageView> mListPoint;
+//
+//        public MyPagerAdapter(List<String> mList, List<ImageView> mListPoint) {
+//            this.mUrlList = mList;
+//            this.mListPoint = mListPoint;
+//        }
+//
+//        @Override
+//        public View getView(int position, View view, ViewGroup container) {
+//            ViewHolder holder;
+//            if (view != null) {
+//                holder = (ViewHolder) view.getTag();
+//            } else {
+//                view = inflater.inflate(R.layout.image_item, container, false);
+//                holder = new ViewHolder(view);
+//                view.setTag(holder);
+//            }
+//            String itemUrl = mUrlList.get(position);
+//            holder.position = position;
+//            Glide.with(ct).load(itemUrl).placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(holder.image);
+//            view.setTag(R.id.tag_first,itemUrl+"");
+//            return view;
+//        }
+//
+//
+//        @Override
+//        public int getItemCount() {
+//            return mUrlList.size();
+//        }
+//
+//        private class ViewHolder {
+//            public int position;
+//            ImageView image;
+//
+//            public ViewHolder(View view) {
+//                image = (ImageView) view.findViewById(R.id.mImageViewItem);
+//            }
+//        }
+//
+//    }
+
+
+
+
     public class MyPagerAdapter extends PagerAdapter {
-        List<ImageView> mList;
+        List<String> mUrlList;
         List<ImageView> mListPoint;
 
-        public MyPagerAdapter(List<ImageView> mList, List<ImageView> mListPoint) {
-            this.mList = mList;
+        public MyPagerAdapter(List<String> mUrlList, List<ImageView> mListPoint) {
+            this.mUrlList = mUrlList;
             this.mListPoint = mListPoint;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            if(mList.size()!=2){
-                Object tag =( (View) object).getTag(R.id.tag_first);
-                container.removeView((View) object);
-            }
-
-//            Object tag = ((View) object).getTag(R.id.tag_first);
-//            container.removeView((View) object);
+           View view = (View) object;
+            container.removeView(view);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View view = mList.get(position % mList.size());
-            Object tag = view.getTag(R.id.tag_first);
-            if (view.getParent() != null) {
-                ((ViewGroup) view.getParent()).removeView(view);
-            }
+            View view = null;
+            view = getViewInternal(position, view, container);
             container.addView(view);
+            String tag = view.getTag(R.id.tag_first).toString();
             return view;
         }
 
         @Override
         public int getCount() {
-            return Integer.MAX_VALUE;
+            return mUrlList.size() * InfiniteViewPager.FakePositionHelper.MULTIPLIER;
+        }
+        protected View getViewInternal(int position, View convertView, ViewGroup container) {
+            return getView(position % mUrlList.size(), convertView, container);
+        }
+        public View getView(int position, View view, ViewGroup container) {
+            ViewHolder holder;
+            if (view != null) {
+                holder = (ViewHolder) view.getTag();
+            } else {
+                view = inflater.inflate(R.layout.image_item, container, false);
+                holder = new ViewHolder(view);
+                view.setTag(holder);
+            }
+            String itemUrl = mUrlList.get(position);
+            holder.position = position;
+            Glide.with(ct).load(itemUrl).placeholder(com.lxpagercycle.R.drawable.ic_image_loading).error(com.lxpagercycle.R.drawable.ic_image_loadfail).crossFade().into(holder.image);
+            view.setTag(R.id.tag_first,itemUrl+"");
+            return view;
+        }
+        private class ViewHolder {
+            public int position;
+            ImageView image;
+
+            public ViewHolder(View view) {
+                image = (ImageView) view.findViewById(R.id.mImageViewItem);
+            }
         }
 
         @Override
@@ -164,6 +215,9 @@ public class LxCycleView extends RelativeLayout {
             return view == object;
         }
     }
+
+
+
 
     //开始游戏
     public void start() {

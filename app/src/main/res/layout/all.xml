@@ -50,4 +50,11 @@
         android:layout_height="wrap_content"
         android:onClick="onclick8"
         android:text="第8" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick9"
+        android:text="第9" />
+
 </LinearLayout>
